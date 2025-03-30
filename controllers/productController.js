@@ -69,7 +69,7 @@ export function deleteProduct(req,res){
     }
 )
 }
-
+//changing the code
 export function updateProduct(req,res){
     if(req.user==null){
         res.status(403).json({
