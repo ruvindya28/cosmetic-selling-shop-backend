@@ -6,11 +6,13 @@ import productRouter from './routes/productRouter.js';
 import verifyJWT from './middleware/auth.js';
 import orderRouter from './routes/orderRouter.js';
 import dotenv from 'dotenv';
+import cors from 'cors';
 dotenv.config();
 
 
 
 const app = express();
+app.use(cors());
 
 mongoose.connect(process.env.MONGO_URL).then(
     ()=>{
