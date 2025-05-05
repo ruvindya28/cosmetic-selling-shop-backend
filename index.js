@@ -10,7 +10,6 @@ import cors from 'cors';
 dotenv.config();
 
 
-
 const app = express();
 app.use(cors());
 
@@ -25,13 +24,9 @@ mongoose.connect(process.env.MONGO_URL).then(
 )
 
 
-
-
 app.use(bodyParser.json());
 app.use(verifyJWT);
    
-
-
 
 app.use("/api/user",userRouter);
 app.use("/api/product",productRouter);

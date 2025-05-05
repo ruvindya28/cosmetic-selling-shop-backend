@@ -19,17 +19,16 @@ export  async function createProduct(req,res){
     
     try{
 
-   await product.save()
-   res.json({
-       message:"Product saved successfully"
-   })
-
-    }catch(err){
-        res.status(500).json({
-            message:"Product not saved"
+        await product.save()
+        res.json({
+            message:"Product saved successfully"
         })
-    }
-    
+
+            }catch(err){
+                res.status(500).json({
+                    message:"Product not saved"
+                })
+            }
 
 }
 export function getProducts(req,res){
