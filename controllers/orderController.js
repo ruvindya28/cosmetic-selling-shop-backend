@@ -41,7 +41,8 @@ export async function createOrder(req,res){
 
         for(let i = 0; i < body.billItems.length; i++){
             
-            const product = await Product.findOne({ productId : body.billItems[i].productId});
+            const product = await Product.findOne({ 
+                productId : body.billItems[i].productId});
             if(product == null){
                 res.status(404).json({
                     message : "Product with Product ID " + body.billItems[i].productId + " not found"
