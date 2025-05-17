@@ -10,7 +10,11 @@ const orderSchema = new mongoose.Schema({
     date: {
         type:Date,
         required: true,
-        defult:Date.now
+        default:Date.now
+    },
+    name: {
+    type: String,
+    required: true
     },
     email: {
         type: String,
