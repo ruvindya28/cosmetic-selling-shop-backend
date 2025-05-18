@@ -78,33 +78,30 @@ export async function createOrder(req,res){
 }
 
 
-export function getOrder(req,res){
-     if(req.user==null){
-        res.status(401).json({
-            message:"Unauthorized"
-        })
+export function getOrder(req, res) {
+    if (req.user == null) {
+        res.status(401).json({ message: "Unauthorized" });
         return;
-     }
-     if(req.user.role!="admin"){
-        Order.find().then((orders)=>{
-            res.json(orders);
-        }).catch((err)=>{
-            res.status(500).json({
-                message:"Orders not found"
+    }
+
+    if (req.user.role == "admin") {
+    
+        Order.find()
+            .then((orders) => {
+                res.json(orders);
             })
-        }
-    )
-     }else{
-        Order.find({
-            email:req.user.email
-        }).then((orders)=>{
-            res.json(orders);        
-        }).catch((err)=>{
-            res.status(500).json({
-                message:"Orders not found"
-        })
-        })
-
-     }
-
+            .catch((err) => {
+                res.status(500).json({ message: "Orders not found" });
+            });
+    } else {
+        
+        Order.find({ email: req.user.email })
+            .then((orders) => {
+                res.json(orders);
+            })
+            .catch((err) => {
+                res.status(500).json({ message: "Orders not found" });
+            });
+    }
 }
+
