@@ -79,7 +79,6 @@ export function deleteProduct(req,res){
     }
 )
 }
-//changing the code
 export function updateProduct(req,res){
     if(req.user==null){
         res.status(403).json({
@@ -109,4 +108,24 @@ export function updateProduct(req,res){
             })
         }
     )
+}
+
+// New: Arrivals - get products Random
+export async function getArrivals(req, res) {
+  try {
+    const products = await Product.aggregate([{ $sample: { size: 4 } }]);
+    res.json({ products });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch arrivals" });
+  }
+}
+
+// Best Sellers
+export async function getBestSellers(req, res) {
+  try {
+    const products = await Product.find().sort({ sales: -1 }).limit(4);
+    res.json({ products });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch best sellers" });
+  }
 }
