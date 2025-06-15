@@ -110,6 +110,22 @@ export function updateProduct(req,res){
     )
 }
 
+//search products
+export async function searchProducts(req, res) {
+  const search = req.query.id;
+  try {
+    const products = await Product.find({
+      $or: [
+        { name: { $regex: query, $options: "i" } },
+        { altNames: { $regex: query, $options: "i" } },
+      ],
+    });
+    res.json({ products });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to search products" });
+  }
+}
+
 // New: Arrivals - get products Random
 export async function getArrivals(req, res) {
   try {
