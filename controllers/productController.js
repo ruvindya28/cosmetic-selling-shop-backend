@@ -112,12 +112,12 @@ export function updateProduct(req,res){
 
 //search products
 export async function searchProducts(req, res) {
-  const search = req.query.id;
+  const search = req.query.q;
   try {
     const products = await Product.find({
       $or: [
-        { name: { $regex: query, $options: "i" } },
-        { altNames: { $regex: query, $options: "i" } },
+        { name: { $regex: search, $options: "i" } },
+        { altNames: { $regex: search, $options: "i" } },
       ],
     });
     res.json({ products });
@@ -125,6 +125,7 @@ export async function searchProducts(req, res) {
     res.status(500).json({ message: "Failed to search products" });
   }
 }
+
 
 // New: Arrivals - get products Random
 export async function getArrivals(req, res) {
