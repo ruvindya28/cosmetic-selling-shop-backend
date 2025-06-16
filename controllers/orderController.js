@@ -77,7 +77,6 @@ export async function createOrder(req,res){
     })
 }
 
-
 export function getOrder(req, res) {
     if (req.user == null) {
         res.status(401).json({ message: "Unauthorized" });
@@ -102,6 +101,21 @@ export function getOrder(req, res) {
             .catch((err) => {
                 res.status(500).json({ message: "Orders not found" });
             });
+    }
+}
+
+export async function deleteOrder(req, res) {
+    console.log(req.params.orderID);
+    try {
+        const orderdelete = await Order.findOneAndDelete({ orderId: req.params.orderId });
+
+        if (!orderdelete) {
+            return res.status(404).json({ message: "Order not found" });
+        }
+
+        res.json({ message: "Order deleted successfully" });
+    } catch (error) {
+        res.status(500).json({ message: "Server error" });
     }
 }
 
