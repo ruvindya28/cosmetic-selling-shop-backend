@@ -239,4 +239,21 @@ export function getCurreentUser(req,res){
 
 export function sendOtp(req,res){
     const email = req.body.email;
+    const otp = Math.floor(Math.random() * 9000)+1000; 
+    const message= {
+        from: "sachiniruvindya@gmail.com",
+        to:email,
+        subject:"OTP for email verification",
+        text:"Your OTP is:" +otp
+    }
+    transfort.sendMail(message, (error, info) => {
+        if (error) {
+            console.log("Error sending email:", error);
+            res.status(500).json({ message: "Failed to send OTP" });
+        } else {
+            console.log("Email sent:", info.response);
+            res.json({ message: "OTP sent successfully", otp: otp });
+        }
+    });
+
 }
