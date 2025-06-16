@@ -42,6 +42,44 @@ export function saveUser(req,res){
     })
 }
 
+//get all users
+
+export async function getAllUsers(req, res) {
+    if (!req.user || req.user.role !== 'admin') {
+        return res.status(403).json({ message: "Access denied" });
+    }
+
+    try {
+        const users = await User.find({}, '-password'); 
+        res.json(users);
+    } catch (e) {
+        res.status(500).json({ message: "Failed to fetch users" });
+    }
+}
+
+// delete user
+
+export async function deleteUser(req, res) {
+    const userId = req.params.userId;
+
+    if (!req.user || req.user.role !== 'admin') {
+        return res.status(403).json({ message: "Access denied" });
+    }
+
+    try {
+        const deletedUser = await User.findByIdAndDelete(userId);
+        if (!deletedUser) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.json({ message: "User deleted successfully" });
+    } catch (e) {
+        res.status(500).json({ message: "Error deleting user" });
+    }
+}
+
+// login user
+
 export function loginUser(req,res){
 
     const email= req.body.email;
