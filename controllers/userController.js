@@ -4,6 +4,18 @@ import bcrypt from "bcrypt";
  import dotenv from "dotenv";
  dotenv.config();
  import axios from "axios";
+import nodemailer from "nodemailer";
+
+ const transfort = nodemailer.createTransport({
+    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    auth: {
+        user: "sachiniruvindya@gmail.com",
+        pass:"nyaznoykfskxrotk"
+    }
+});
 
 export function saveUser(req,res){
 
@@ -223,4 +235,8 @@ export function getCurreentUser(req,res){
             user : req.user
         }
       )
+}
+
+export function sendOtp(req,res){
+    const email = req.body.email;
 }
