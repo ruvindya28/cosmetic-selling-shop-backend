@@ -104,7 +104,7 @@ export function loginUser(req,res){
 
     }).then((user)=>{
        if(user==null){
-        res.json({
+        res.status(404).json({
             message:"Invalid Email"
         })
        }else{
@@ -135,7 +135,7 @@ export function loginUser(req,res){
             })
 
         }else{
-            res.json({
+            res.status(403).json({
                 message:"Invalid Password"
             })
         }
