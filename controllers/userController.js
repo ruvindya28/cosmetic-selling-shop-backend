@@ -1,12 +1,11 @@
-
 import User from "../models/user.js";
 import bcrypt from "bcrypt";
- import jwt from "jsonwebtoken"
- import dotenv from "dotenv";
- dotenv.config();
- import axios from "axios";
+import jwt from "jsonwebtoken"
+import dotenv from "dotenv";
+import axios from "axios";
 import nodemailer from "nodemailer";
 import Otp from "../models/otp.js";
+dotenv.config();
 
  const transport = nodemailer.createTransport({
     service: 'gmail',
@@ -18,6 +17,7 @@ import Otp from "../models/otp.js";
         pass:"nyaznoykfskxrotk"
     }
 });
+
 
 export function saveUser(req,res){
 
@@ -241,13 +241,13 @@ export function getCurreentUser(req,res){
 
 export function sendOtp(req,res){
     const email = req.body.email;
-    const otp = Math.floor(Math.random() * 10000); 
+    const otp = Math.floor(Math.random() * 9000 + 1000); 
 
     const message= {
         from: "sachiniruvindya@gmail.com",
         to:email,
         subject:"OTP for email verification",
-        text:`Your OTP is ${otp}.`
+        text:'Your OTP is: ' + otp
     }
     
     const newOtp = new Otp({
